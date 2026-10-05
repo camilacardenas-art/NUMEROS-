@@ -1,4 +1,8 @@
 # NUMEROS-
+#ENLACE PARCIAL LATEX 
+
+https://es.overleaf.com/read/cfhfrkhhgvtt#653b11
+
 # 🤖 Sistema de Simulación Robótica y Control de Trazo en 3D
 
 Este proyecto implementa un entorno de simulación robótica e interacción hardware-software integrando un **brazo robótico manipulador en PyBullet**, un **controlador empotrado ESP32** simulado en Wokwi, un **sistema de Visión por Computador (OpenCV)** y un **puente de comunicación asíncrono**. 
