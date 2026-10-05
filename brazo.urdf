@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<robot name="robot_con_pinza">
+
+  <!-- ================= MATERIALES ================= -->
+  <material name="base_material">
+    <color rgba="0.3 0.3 0.3 1"/>
+  </material>
+  <material name="brazo1_material">
+    <color rgba="0.2 0.6 0.8 1"/>
+  </material>
+  <material name="brazo2_material">
+    <color rgba="0.9 0.5 0.1 1"/>
+  </material>
+  <material name="pinza_material">
+    <color rgba="0.8 0.2 0.2 1"/>
+  </material>
+  <material name="dedo_material">
+    <color rgba="0.9 0.9 0.9 1"/>
+  </material>
+
+  <!-- ================= LINK 0: BASE ================= -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.15" radius="0.25"/>
+      </geometry>
+      <origin xyz="0 0 0.075"/>
+      <material name="base_material"/>
+    </visual>
+  </link>
+
+  <!-- ================= JOINT 1: BASE - BRAZO 1 ================= -->
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="brazo1_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.5" upper="2.5" effort="10" velocity="1.0"/>
+  </joint>
+
+  <!-- ================= LINK 1: BRAZO 1 ================= -->
+  <link name="brazo1_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.6" radius="0.08"/>
+      </geometry>
+      <origin xyz="0 0 0.3"/>
+      <material name="brazo1_material"/>
+    </visual>
+  </link>
+
+  <!-- ================= JOINT 2: BRAZO 1 - BRAZO 2 ================= -->
+  <joint name="joint_2" type="revolute">
+    <parent link="brazo1_link"/>
+    <child link="brazo2_link"/>
+    <origin xyz="0 0 0.6" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-2.0" upper="2.0" effort="10" velocity="1.0"/>
+  </joint>
+
+  <!-- ================= LINK 2: BRAZO 2 ================= -->
+  <link name="brazo2_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.5" radius="0.06"/>
+      </geometry>
+      <origin xyz="0 0 0.25"/>
+      <material name="brazo2_material"/>
+    </visual>
+  </link>
+
+  <!-- ================= JOINT GRIPPER: BRAZO 2 - PINZA ================= -->
+  <joint name="joint_gripper" type="prismatic">
+    <parent link="brazo2_link"/>
+    <child link="pinza_base"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.0" upper="0.05" effort="5" velocity="0.5"/>
+  </joint>
+
+  <!-- ================= LINK 3: BASE PINZA ================= -->
+  <link name="pinza_base">
+    <visual>
+      <geometry>
+        <box size="0.2 0.08 0.04"/>
+      </geometry>
+      <origin xyz="0 0 0.02"/>
+      <material name="pinza_material"/>
+    </visual>
+  </link>
+
+  <!-- ================= DEDO IZQUIERDO ================= -->
+  <joint name="joint_dedo_izq" type="prismatic">
+    <parent link="pinza_base"/>
+    <child link="dedo_izq"/>
+    <origin xyz="0.08 0 0.04" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="0.0" upper="0.05" effort="2" velocity="0.2"/>
+  </joint>
+
+  <link name="dedo_izq">
+    <visual>
+      <geometry>
+        <box size="0.02 0.04 0.1"/>
+      </geometry>
+      <origin xyz="0 0 0.05"/>
+      <material name="dedo_material"/>
+    </visual>
+  </link>
+
+  <!-- ================= DEDO DERECHO ================= -->
+  <joint name="joint_dedo_der" type="prismatic">
+    <parent link="pinza_base"/>
+    <child link="dedo_der"/>
+    <origin xyz="-0.08 0 0.04" rpy="0 0 0"/>
+    <axis xyz="-1 0 0"/>
+    <limit lower="0.0" upper="0.05" effort="2" velocity="0.2"/>
+  </joint>
+
+  <link name="dedo_der">
+    <visual>
+      <geometry>
+        <box size="0.02 0.04 0.1"/>
+      </geometry>
+      <origin xyz="0 0 0.05"/>
+      <material name="dedo_material"/>
+    </visual>
+  </link>
+
+</robot>
